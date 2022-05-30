@@ -40,6 +40,13 @@ export default class Network extends Tool {
     })
     return ret
   }
+  _getParsedData = (params) => {
+    const headers = params.request.headers || {};
+    if (headers['content-type'] === 'application/x-www-form-urlencoded') {
+      return decodeURIComponent(params.request.postData);
+    }
+    return null;
+  }
   _reqWillBeSent = (params) => {
     this._requests[params.requestId] = {
       name: getFileName(params.request.url),
@@ -49,6 +56,7 @@ export default class Network extends Tool {
       subType: 'unknown',
       size: 0,
       data: params.request.postData,
+      parsedData: this._getParsedData(params),
       method: params.request.method,
       startTime: params.timestamp * 1000,
       time: 0,
