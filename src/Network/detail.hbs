@@ -3,6 +3,12 @@
   {{#if data}}
     <pre {{{class 'data'}}}>{{data}}</pre>
   {{/if}}
+  {{#if parsedData}}
+    <div {{{class 'section'}}}>
+      <h2>Parsed Data</h2>
+      <pre {{{class 'data'}}}>{{parsedData}}</pre>
+    </div>
+  {{/if}}
   <div {{{class 'section'}}}>
     <h2>Request Headers</h2>
     <table {{{class 'headers'}}}>
