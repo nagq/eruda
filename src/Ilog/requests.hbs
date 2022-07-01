@@ -1,0 +1,12 @@
+{{#if requests}}
+  {{#each requests}}
+    <li class="eruda-request {{#if hasErr}}eruda-error{{/if}}" data-id="{{@key}}">
+      <span {{{class 'type'}}}>{{ilogData.old_event_log_type}}</span>
+      <span {{{class 'name'}}}>{{ilogData.CommonClick}}</span>
+      {{!-- <span {{{class 'info'}}}>{{ilogData.extra_infomation}}</span>
+      <span {{{class 'info1'}}}>{{ilogData.extra_infomation1}}</span> --}}
+    </li>
+  {{/each}}
+{{else}}
+  <li><span {{{class 'name'}}}>Empty</span></li>
+{{/if}}

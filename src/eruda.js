@@ -3,6 +3,7 @@ import DevTools from './DevTools/DevTools'
 import Tool from './DevTools/Tool'
 import Console from './Console/Console'
 import Network from './Network/Network'
+import Ilog from './Ilog/Ilog'
 import Elements from './Elements/Elements'
 import Snippets from './Snippets/Snippets'
 import Resources from './Resources/Resources'
@@ -53,6 +54,7 @@ export default {
   Console,
   Elements,
   Network,
+  Ilog,
   Sources,
   Resources,
   Info,
@@ -205,7 +207,7 @@ export default {
     evalCss(
       require('luna-object-viewer/luna-object-viewer.css') +
       require('luna-console/luna-console.css') +
-      require('luna-notification/luna-notification.css') + 
+      require('luna-notification/luna-notification.css') +
       require('./style/style.scss') +
         require('./style/reset.scss') +
         require('./style/icon.css')
@@ -229,6 +231,7 @@ export default {
       'console',
       'elements',
       'network',
+      'Ilog',
       'resources',
       'sources',
       'info',

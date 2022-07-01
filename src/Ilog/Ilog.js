@@ -4,15 +4,15 @@ import { getFileName } from '../lib/fione'
 import evalCss from '../lib/evalCss'
 import chobitsu from 'chobitsu'
 
-export default class Network extends Tool {
+export default class Ilog extends Tool {
   constructor() {
     super()
 
-    this._style = evalCss(require('./Network.scss'))
+    this._style = evalCss(require('./Ilog.scss'))
 
-    this.name = 'network'
+    this.name = 'Ilog'
     this._requests = {}
-    this._tpl = require('./Network.hbs')
+    this._tpl = require('./Ilog.hbs')
     this._detailTpl = require('./detail.hbs')
     this._requestsTpl = require('./requests.hbs')
     this._detailData = {}
@@ -48,7 +48,31 @@ export default class Network extends Tool {
     return null;
   }
   _reqWillBeSent = (params) => {
-    if (!/cloud_web_sdk_req_body/.test(params.request.url)) {
+    if (/cloud_web_sdk_req_body/.test(params.request.url)) {
+      let ilogData = null;
+      try {
+        const postData = decodeURIComponent(params.request?.postData);
+        const data = JSON.parse(postData);
+        const { old_event_log_type, CommonClick, extra_infomation, extra_infomation1, event_name } = data;
+        ilogData = {
+          old_event_log_type: old_event_log_type || event_name,
+          CommonClick,
+          extra_infomation: JSON.stringify(extra_infomation),
+          extra_infomation1: JSON.stringify(extra_infomation1),
+        }
+      } catch(error) {
+        const postData = decodeURIComponent(params.request?.postData);
+        const reg = /"old_event_log_type":"(.*)","old_event_log_value":".*","old_event_log_description":".*","CommonClick":"(.*)","extra_infomation":(.*),"extra_infomation1":(.*)/;
+        const result = postData?.match(reg) || [];
+        const [ , old_event_log_type, CommonClick, extra_infomation, extra_infomation1 ] = result;
+        ilogData = {
+          old_event_log_type,
+          CommonClick,
+          extra_infomation,
+          extra_infomation1,
+        }
+      }
+
       this._requests[params.requestId] = {
         name: getFileName(params.request.url),
         url: params.request.url,
@@ -65,6 +89,7 @@ export default class Network extends Tool {
         done: false,
         reqHeaders: params.request.headers || {},
         resHeaders: {},
+        ilogData,
       }
     }
   }

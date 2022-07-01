@@ -1,0 +1,76 @@
+<div {{{class 'http'}}}>
+  <div {{{class 'section'}}}>
+    <h2>Ilog</h2>
+    <table {{{class 'headers'}}}>
+      <tbody>
+        <tr>
+          <td {{{class 'key'}}}>事件类型</td>
+          <td>{{ilogData.old_event_log_type}}</td>
+        </tr>
+        <tr>
+          <td {{{class 'key'}}}>事件名称</td>
+          <td>{{ilogData.CommonClick}}</td>
+        </tr>
+        <tr>
+          <td {{{class 'key'}}}>额外信息</td>
+          <td>{{ilogData.extra_infomation}}</td>
+        </tr>
+        <tr>
+          <td {{{class 'key'}}}>额外信息1</td>
+          <td>{{ilogData.extra_infomation1}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div {{{class 'breadcrumb'}}}>{{url}}</div>
+  {{#if data}}
+    <pre {{{class 'data'}}}>{{data}}</pre>
+  {{/if}}
+  {{#if parsedData}}
+    <div {{{class 'section'}}}>
+      <h2>Parsed Data</h2>
+      <pre {{{class 'data'}}}>{{parsedData}}</pre>
+    </div>
+  {{/if}}
+  <div {{{class 'section'}}}>
+    <h2>Request Headers</h2>
+    <table {{{class 'headers'}}}>
+      <tbody>
+        {{#if reqHeaders}}
+          {{#each reqHeaders}}
+            <tr>
+              <td {{{class 'key'}}}>{{@key}}</td>
+              <td>{{.}}</td>
+            </tr>
+          {{/each}}
+        {{else}}
+          <tr>
+            <td>Empty</td>
+          </tr>
+        {{/if}}
+      </tbody>
+    </table>
+    <h2>Response Headers</h2>
+    <table {{{class 'headers'}}}>
+      <tbody>
+        {{#if resHeaders}}
+          {{#each resHeaders}}
+            <tr>
+              <td {{{class 'key'}}}>{{@key}}</td>
+              <td>{{.}}</td>
+            </tr>
+          {{/each}}
+        {{else}}
+          <tr>
+            <td>Empty</td>
+          </tr>
+        {{/if}}
+      </tbody>
+    </table>
+  </div>
+  {{#if resTxt}}
+    <pre {{{class 'response'}}}>{{resTxt}}</pre>
+  {{/if}}
+</div>
+<div {{{class 'back'}}}>Back to the List</div>
